@@ -9,11 +9,16 @@ cursor.execute("""create table if not exists Users (
                     Idade integer not null
                )
                """)
+#cursor.execute("INSERT INTO users (Nome, Idade) VALUES ('Lucas', 21)")
+
+#cursor.execute("DELETE FROM users WHERE Id == 2")
+
+cursor.execute("UPDATE users SET Nome = 'João' WHERE Id = 3")
 
 response = cursor.execute("select * from users").fetchall()
 
-for i, value in enumerate(response):
-    print(value[0])
+for value in response:
+    print(value)
 
 conn.commit()
 conn.close()
