@@ -8,10 +8,10 @@ class App(Tk):
         self.fonte = ("Arial", 20)
         
         self.database = DatabaseRepository()
+        self.database.create_table()
         
         self.title("Database Connection")
         self.geometry("1280x720")
-        self.create_table()
         self.sidebar()
         self.create_tela_cadastro()
         self.create_tela_consulta()
@@ -63,22 +63,12 @@ class App(Tk):
         self.tela_boas_vindas_frame.pack_forget()
         self.tela_cadastro_frame.pack_forget()
         self.tela_consulta_frame.pack(fill=BOTH, expand=True)
-        
-    def create_table(self):
-        query = """create table if not exists Users (
-            Id integer primary key autoincrement, 
-            Nome string not null
-            )"""
-            
-        self.database.create_table(query=query)
     
     def insert_data(self):
         nome = self.entrada_nome.get()
         idade = self.entrada_idade.get()
-
-        query = """insert into Users (nome, idade) values (?, ?)"""
         data = (nome, idade)
-        self.database.insert_data(query=query, data=data)
+        self.database.insert_complete_data(data=data)
         
 app = App()
 app.mainloop()
